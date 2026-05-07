@@ -1,98 +1,120 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Event Ticketing & Booking System
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Ledwino Galih Wandanu - 5053241017
+Handhika Putra Widyartono - 5053241039
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Typescript + NestJS
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project setup
+## Project Structure
 
-```bash
-$ npm install
+```
+kpl-event-management-system/
+│
+├── migrations/                         
+│   ├── 20240001_create_enums.sql
+│   ├── 20240002_create_events.sql
+│   ├── 20240003_create_ticket_categories.sql
+│   ├── 20240004_create_bookings.sql
+│   ├── 20240005_create_tickets.sql
+│   └── 20240006_create_refunds.sql
+│
+├── src/
+│   ├── main.ts
+│   ├── app.module.ts
+│   │
+│   ├── domain/                         
+│   │   ├── shared/
+│   │   │   ├── domain-event.ts         
+│   │   │   └── errors.ts               
+│   │   ├── event/
+│   │   │   ├── event.aggregate.ts      
+│   │   │   ├── ticket-category.entity.ts
+│   │   │   ├── value-objects.ts        
+│   │   │   ├── events.ts               
+│   │   │   └── event.repository.ts     
+│   │   ├── booking/
+│   │   │   ├── booking.aggregate.ts
+│   │   │   ├── value-objects.ts        
+│   │   │   ├── events.ts               
+│   │   │   └── booking.repository.ts
+│   │   ├── ticket/
+│   │   │   ├── ticket.entity.ts
+│   │   │   ├── value-objects.ts        
+│   │   │   ├── events.ts
+│   │   │   └── ticket.repository.ts
+│   │   └── refund/
+│   │       ├── refund.aggregate.ts
+│   │       ├── value-objects.ts        
+│   │       ├── events.ts               
+│   │       └── refund.repository.ts
+│   │
+│   ├── application/                    
+│   │   ├── ports/
+│   │   │   ├── payment-gateway.port.ts 
+│   │   │   ├── refund-payment.port.ts  
+│   │   │   └── notification.port.ts    
+│   │   ├── event/
+│   │   │   ├── commands.ts
+│   │   │   └── queries.ts
+│   │   ├── booking/
+│   │   │   ├── commands.ts
+│   │   │   └── queries.ts
+│   │   ├── ticket/
+│   │   │   ├── commands.ts
+│   │   │   └── queries.ts
+│   │   └── refund/
+│   │       ├── commands.ts
+│   │       └── queries.ts
+│   │
+│
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## Implemented User Stories
 
-# watch mode
-$ npm run start:dev
+- US1 – Create Event
+- US2 – Publish Event
+- US3 – Cancel Event
+- US4 – Create Ticket Category
+- US5 – Disable Ticket Category
+- US6 – View Available Events
+- US7 – View Event Details
+- US8 – Create Ticket Booking
+- US9 – Calculate Booking Total Price
+- US10 – Pay Booking
+- US11 – Expire Booking
+- US12 – View Purchased Tickets
+- US13 – Check In Ticket
+- US14 – Reject Invalid Ticket Check-in
+- US15 – Request Refund
+- US16 – Approve Refund
+- US17 – Reject Refund
+- US18 – Mark Refund as Paid Out
+- US19 – View Event Sales Report
+- US20 – View Event Participants
 
-# production mode
-$ npm run start:prod
-```
+---
 
-## Run tests
+## Domain Events
 
-```bash
-# unit tests
-$ npm run test
+| Event | Raised by |
+|-------|-----------|
+| `EventCreated` | `Event.create()` |
+| `EventPublished` | `Event.publish()` |
+| `EventCancelled` | `Event.cancel()` |
+| `TicketCategoryCreated` | `Event.addCategory()` |
+| `TicketCategoryDisabled` | `Event.disableCategory()` |
+| `TicketReserved` | `Booking.create()` |
+| `BookingPaid` | `Booking.pay()` |
+| `BookingExpired` | `Booking.expire()` |
+| `TicketCheckedIn` | `Ticket.checkIn()` |
+| `RefundRequested` | `Refund.request()` |
+| `RefundApproved` | `Refund.approve()` |
+| `RefundRejected` | `Refund.reject()` |
+| `RefundPaidOut` | `Refund.markPaidOut()` |
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
