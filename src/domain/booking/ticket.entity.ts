@@ -15,6 +15,15 @@ type CreateTicketProps = {
     ticketCode: string;
 };
 
+type ReconstructTicketProps = {
+    id: string;
+    bookingId: string;
+    eventId: string;
+    ticketCategoryId: string;
+    ticketCode: string;
+    status: TicketStatus;
+};
+
 export class Ticket {
     private domainEvents: DomainEvent[] = [];
 
@@ -35,6 +44,17 @@ export class Ticket {
             props.ticketCategoryId,
             props.ticketCode,
             TicketStatus.Active,
+        );
+    }
+
+    public static reconstruct(props: ReconstructTicketProps): Ticket {
+        return new Ticket(
+            props.id,
+            props.bookingId,
+            props.eventId,
+            props.ticketCategoryId,
+            props.ticketCode,
+            props.status,
         );
     }
 
