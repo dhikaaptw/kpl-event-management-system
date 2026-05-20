@@ -28,6 +28,19 @@ type AddTicketCategoryProps = {
     salesEndDate: Date;
 };
 
+type ReconstructEventProps = {
+    id: string;
+    organizerId: string;
+    name: string;
+    description: string;
+    startDate: Date;
+    endDate: Date;
+    location: string;
+    maximumCapacity: number;
+    status: EventStatus;
+    ticketCategories: TicketCategory[];
+};
+
 export class EventAggregate extends AggregateRoot {
     private ticketCategories: TicketCategory[] = [];
 
@@ -74,6 +87,22 @@ export class EventAggregate extends AggregateRoot {
 
     return event;
   }
+  
+  public static reconstruct(props: ReconstructEventProps): EventAggregate {
+        const event = new EventAggregate(
+            props.id,
+            props.organizerId,
+            props.name,
+            props.description,
+            props.startDate,
+            props.endDate,
+            props.location,
+            props.maximumCapacity,
+            props.status,
+        );
+        event.ticketCategories = props.ticketCategories;
+        return event;
+    }
 
   public addTicketCategory(props: AddTicketCategoryProps): void {
     if (props.salesEndDate > this.startDate) {
