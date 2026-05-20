@@ -9,6 +9,17 @@ type CreateTicketCategoryProps = {
     salesEndDate: Date;
 };
 
+type ReconstructTicketCategoryProps = {
+    id: string;
+    name: string;
+    price: Money;
+    quota: number;
+    remainingQuota: number;
+    salesStartDate: Date;
+    salesEndDate: Date;
+    active: boolean;
+};
+
 export class TicketCategory {
     private constructor(
         public readonly id: string,
@@ -18,6 +29,7 @@ export class TicketCategory {
         public readonly salesStartDate: Date,
         public readonly salesEndDate: Date,
         private active: boolean,
+        private remainingQuota: number,
     ) {}
 
     public static create(props: CreateTicketCategoryProps): TicketCategory {
@@ -45,6 +57,20 @@ export class TicketCategory {
             props.salesStartDate,
             props.salesEndDate,
             true,
+            props.quota,
+        );
+    }
+
+    public static reconstruct(props: ReconstructTicketCategoryProps): TicketCategory {
+        return new TicketCategory(
+            props.id,
+            props.name,
+            props.price,
+            props.quota,
+            props.salesStartDate,
+            props.salesEndDate,
+            props.active,
+            props.remainingQuota,
         );
     }
 
@@ -54,6 +80,21 @@ export class TicketCategory {
 
     public isActive(): boolean {
         return this.active;
+    }
+
+    public getRemainingQuota(): number {
+        return this.remainingQuota;
+    }
+
+    public reserveQuota(quantity: number): void {
+        if (quantity > this.remainingQuota) {
+            throw new Error('Not enough remaining quota');
+        }
+        this.remainingQuota -= quantity;
+    }
+
+    public releaseQuota(quantity: number): void {
+        this.remainingQuota += quantity;
     }
 
     public isAvailableForPurchase(now: Date): boolean {
