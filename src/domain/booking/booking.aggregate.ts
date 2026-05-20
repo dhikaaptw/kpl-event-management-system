@@ -22,6 +22,19 @@ type CreateBookingProps = {
     paymentDeadline: Date;
 };
 
+type ReconstructBookingProps = {
+    id: string;
+    customerId: string;
+    eventId: string;
+    ticketCategoryId: string;
+    quantity: number;
+    unitPrice: Money;
+    totalPrice: Money;
+    paymentDeadline: Date;
+    status: BookingStatus;
+    tickets: Ticket[];
+};
+
 export class BookingAggregate extends AggregateRoot {
     private tickets: Ticket[] = [];
 
@@ -62,6 +75,22 @@ export class BookingAggregate extends AggregateRoot {
             new TicketReservedEvent(booking.id, booking.customerId, booking.eventId),
         );
 
+        return booking;
+    }
+
+    public static reconstruct(props: ReconstructBookingProps): BookingAggregate {
+        const booking = new BookingAggregate(
+            props.id,
+            props.customerId,
+            props.eventId,
+            props.ticketCategoryId,
+            props.quantity,
+            props.unitPrice,
+            props.totalPrice,
+            props.paymentDeadline,
+            props.status,
+        );
+        booking.tickets = props.tickets;
         return booking;
     }
 
