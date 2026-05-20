@@ -22,6 +22,17 @@ type CreateRefundProps = {
     refundDeadline: Date;
 };
 
+type ReconstructRefundProps = {
+    id: string;
+    bookingId: string;
+    customerId: string;
+    amount: Money;
+    refundDeadline: Date;
+    status: RefundStatus;
+    rejectionReason: string | null;
+    paymentReference: string | null;
+};
+
 export class RefundAggregate extends AggregateRoot {
     private constructor(
         public readonly id: string,
@@ -57,6 +68,19 @@ export class RefundAggregate extends AggregateRoot {
         );
 
         return refund;
+    }
+
+    public static reconstruct(props: ReconstructRefundProps): RefundAggregate {
+        return new RefundAggregate(
+            props.id,
+            props.bookingId,
+            props.customerId,
+            props.amount,
+            props.refundDeadline,
+            props.status,
+            props.rejectionReason,
+            props.paymentReference,
+        );
     }
 
     public approve(): void {
