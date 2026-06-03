@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS tickets (
+  id UUID PRIMARY KEY,
+  booking_id UUID NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
+  event_id UUID NOT NULL REFERENCES events(id),
+  ticket_category_id UUID NOT NULL REFERENCES ticket_categories(id),
+  ticket_code VARCHAR(100) NOT NULL UNIQUE,
+  status ticket_status NOT NULL DEFAULT 'Active',
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE INDEX idx_tickets_ticket_code ON tickets(ticket_code);
+CREATE INDEX idx_tickets_booking_id ON tickets(booking_id);
